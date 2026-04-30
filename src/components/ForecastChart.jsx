@@ -1,28 +1,35 @@
-import Plot from "react-plotly.js";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  Tooltip,
+  ResponsiveContainer,
+  CartesianGrid,
+} from "recharts";
 
 export default function ForecastChart({ forecast }) {
+  const data = forecast.predictions.map((p, i) => ({
+    step: `T+${i + 1}`,
+    value: p,
+  }));
+
   return (
     <div className="bg-gray-900 p-4 rounded-xl">
-      <h2 className="mb-2">Forecast</h2>
+      <h2 className="mb-3 text-lg">Forecast ({forecast.model})</h2>
 
-      <Plot
-        data={[
-          {
-            y: forecast.predictions,
-            type: "scatter",
-            mode: "lines+markers",
-            name: forecast.model,
-          },
-        ]}
-        layout={{
-          paper_bgcolor: "#111",
-          plot_bgcolor: "#111",
-          font: { color: "#fff" },
-        }}
-      />
+      <ResponsiveContainer width="100%" height={300}>
+        <LineChart data={data}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="step" />
+          <Tooltip />
 
-      <div className="mt-3 text-sm text-gray-400">
-        RMSE: {forecast.metrics.RMSE} | MAE: {forecast.metrics.MAE}
+          <Line type="monotone" dataKey="value" stroke="#a855f7" strokeWidth={2} />
+        </LineChart>
+      </ResponsiveContainer>
+
+      {/* Metrics */}
+      <div className="mt-4 text-sm text-gray-400">
+        MAE: {forecast.metrics.MAE} | RMSE: {forecast.metrics.RMSE} | MAPE: {forecast.metrics.MAPE}
       </div>
     </div>
   );

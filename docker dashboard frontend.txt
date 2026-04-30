@@ -1,0 +1,72 @@
+🐳 STEP 1: Create frontend/Dockerfile
+
+Inside your React project folder:
+FROM node:18
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm install
+
+COPY . .
+
+EXPOSE 5173
+
+CMD ["npm", "run", "dev", "--", "--host"]
+
+
+👉 --host is IMPORTANT
+Without it, Docker won’t expose Vite server
+
+
+
+🚫 STEP 2: Create .dockerignore
+
+node_modules
+dist
+.git
+
+
+
+⚙️ STEP 3: Build Image
+docker build -t react-frontend .
+
+
+
+▶️ STEP 4: Run Container
+docker run -p 5173:5173 react-frontend
+docker run -p 3000:5173 react-frontend
+
+
+STEP 5: Open App
+
+http://localhost:5173
+
+
+
+🐳 If it’s running in background (or you closed terminal)
+Step 1: List running containers
+
+docker ps
+
+You’ll see something like:
+CONTAINER ID   IMAGE            PORTS
+abc123         react-frontend   0.0.0.0:5173->5173
+
+
+Step 2: Stop container
+docker stop abc123
+
+
+
+
+
+_____________________________________________________________________________________________
+
+
+⚡ One-line stop all containers
+docker stop $(docker ps -q)
+
+
+
+
