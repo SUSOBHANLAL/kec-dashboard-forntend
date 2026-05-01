@@ -1,8 +1,8 @@
 const NAV_ITEMS = [
-  { label: "Dashboard",    icon: "grid"   },
-  { label: "Live Forecast", icon: "wave"  },
-  { label: "Model Arena",   icon: "radar" },
-  { label: "Reports",       icon: "chat"  },
+  { label: "Dashboard",    icon: "grid"   }
+  // { label: "Live Forecast", icon: "wave"  },
+  // { label: "Model Arena",   icon: "radar" },
+  // { label: "Reports",       icon: "chat"  },
 ];
 
 function Icon({ name }) {

@@ -78,8 +78,7 @@ import { useState } from "react";
 
 const MODELS = [
   { value: "arima", label: "ARIMA"         },
-  { value: "rf",    label: "Random Forest" },
-  { value: "lstm",  label: "LSTM"          },
+
 ];
 
 export default function Topbar({ ticker, model, onSearch, onModelChange, onRefresh }) {
